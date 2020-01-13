@@ -25,8 +25,6 @@ Imports:
     cluster,
     cowplot,
     fitdistrplus,
-    future,
-    future.apply,
     ggplot2 (>= 3.0.0),
     ggrepel,
     ggridges,
@@ -43,14 +41,11 @@ Imports:
     MASS,
     Matrix (>= 1.2-14),
     metap,
-    pbapply,
-    plotly,
     png,
     RANN,
     RColorBrewer,
     Rcpp,
     RcppAnnoy,
-    reticulate,
     rlang,
     ROCR,
     rsvd,
@@ -70,16 +65,12 @@ Collate:
     'RcppExports.R'
     'generics.R'
     'clustering.R'
-    'visualization.R'
-    'convenience.R'
-    'data.R'
     'differential_expression.R'
     'dimensional_reduction.R'
-    'integration.R'
     'objects.R'
     'preprocessing.R'
-    'tree.R'
     'utilities.R'
+    'visualization.R'
     'zzz.R'
 RoxygenNote: 7.0.2
 Encoding: UTF-8

@@ -25,42 +25,12 @@ VlnPlot(
 )
 }
 \arguments{
-\item{object}{Seurat object}
-
-\item{features}{Features to plot (gene expression, metrics, PC scores,
-anything that can be retreived by FetchData)}
-
-\item{cols}{Colors to use for plotting}
-
 \item{pt.size}{Point size for geom_violin}
-
-\item{idents}{Which classes to include in the plot (default is all)}
-
-\item{sort}{Sort identity classes (on the x-axis) by the average
-expression of the attribute being potted, can also pass 'increasing' or 'decreasing' to change sort direction}
-
-\item{assay}{Name of assay to use, defaults to the active assay}
-
-\item{group.by}{Group (color) cells in different ways (for example, orig.ident)}
 
 \item{split.by}{A variable to split the violin plots by,
 see \code{\link{FetchData}} for more details}
 
 \item{adjust}{Adjust parameter for geom_violin}
-
-\item{y.max}{Maximum y axis value}
-
-\item{same.y.lims}{Set all the y-axis limits to the same values}
-
-\item{log}{plot the feature axis on log scale}
-
-\item{ncol}{Number of columns if multiple plots are displayed}
-
-\item{combine}{Combine plots into a single gg object; note that if TRUE; themeing will not work when plotting multiple features}
-
-\item{slot}{Use non-normalized counts data for plotting}
-
-\item{...}{Extra parameters passed on to \code{\link{CombinePlots}}}
 }
 \value{
 A ggplot object

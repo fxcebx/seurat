@@ -3,7 +3,6 @@
 \name{RunUMAP}
 \alias{RunUMAP}
 \alias{RunUMAP.default}
-\alias{RunUMAP.Graph}
 \alias{RunUMAP.Seurat}
 \title{Run UMAP}
 \usage{
@@ -32,28 +31,6 @@ RunUMAP(object, ...)
   angular.rp.forest = FALSE,
   reduction.key = "UMAP_",
   verbose = TRUE,
-  ...
-)
-
-\method{RunUMAP}{Graph}(
-  object,
-  assay = NULL,
-  umap.method = "umap-learn",
-  n.components = 2L,
-  metric = "correlation",
-  n.epochs = 0L,
-  learning.rate = 1,
-  min.dist = 0.3,
-  spread = 1,
-  repulsion.strength = 1,
-  negative.sample.rate = 5L,
-  a = NULL,
-  b = NULL,
-  uwot.sgd = FALSE,
-  seed.use = 42L,
-  metric.kwds = NULL,
-  verbose = TRUE,
-  reduction.key = "UMAP_",
   ...
 )
 

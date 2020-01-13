@@ -33,18 +33,6 @@ AddMetaData <- function(object, metadata, col.name = NULL) {
   UseMethod(generic = 'AddMetaData', object = object)
 }
 
-#' Convert objects to CellDataSet objects
-#'
-#' @param x An object to convert to class \code{CellDataSet}
-#' @param ... Arguments passed to other methods
-#'
-#' @rdname as.CellDataSet
-#' @export as.CellDataSet
-#'
-as.CellDataSet <- function(x, ...) {
-  UseMethod(generic = 'as.CellDataSet', object = x)
-}
-
 #' Convert a matrix (or Matrix) to the Graph class.
 #'
 #' @param x The matrix to convert
@@ -57,20 +45,6 @@ as.Graph <- function(x, ...) {
   UseMethod(generic = "as.Graph", object = x)
 }
 
-#' Convert objects to loom objects
-#'
-#' @param x An object to convert to class \code{loom}
-#' @inheritParams loomR::create
-#'
-#' @seealso \code{\link[loomR]{create}}
-#'
-#' @rdname as.loom
-#' @export as.loom
-#'
-as.loom <- function(x, ...) {
-  UseMethod(generic = 'as.loom', object = x)
-}
-
 #' Convert objects to Seurat objects
 #'
 #' @param x An object to convert to class \code{Seurat}
@@ -81,18 +55,6 @@ as.loom <- function(x, ...) {
 #'
 as.Seurat <- function(x, ...) {
   UseMethod(generic = 'as.Seurat', object = x)
-}
-
-#' Convert objects to SingleCellExperiment objects
-#'
-#' @param x An object to convert to class \code{SingleCellExperiment}
-#' @param ... Arguments passed to other methods
-#'
-#' @rdname as.SingleCellExperiment
-#' @export as.SingleCellExperiment
-#'
-as.SingleCellExperiment <- function(x, ...) {
-  UseMethod(generic = 'as.SingleCellExperiment', object = x)
 }
 
 #' Convert between data frames and sparse matrices
@@ -146,7 +108,7 @@ Command <- function(object, ...) {
 #' @param object An object
 #' @param ... Arguments passed to other methods
 #'
-#' @return The name of the default assay
+  #' @return The name of the default assay
 #'
 #' @rdname DefaultAssay
 #' @export DefaultAssay
@@ -435,29 +397,6 @@ IsGlobal <- function(object, ...) {
   UseMethod(generic = 'IsGlobal', object = object)
 }
 
-#' Get JackStraw information
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods
-#'
-#' @rdname JS
-#' @export JS
-#'
-JS <- function(object, ...) {
-  UseMethod(generic = 'JS', object = object)
-}
-
-#' Set JackStraw information
-#'
-#' @inherit JS
-#' @param value JackStraw information
-#'
-#' @rdname JS
-#' @export JS<-
-#'
-"JS<-" <- function(object, ..., value) {
-  UseMethod(generic = 'JS<-', object = object)
-}
 
 #' Get a key
 #'
@@ -507,33 +446,6 @@ Loadings <- function(object, ...) {
   UseMethod(generic = 'Loadings<-', object = object)
 }
 
-#' Access miscellaneous data
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods
-#'
-#' @return Miscellaneous data
-#'
-#' @rdname Misc
-#' @export Misc
-#'
-Misc <- function(object, ...) {
-  UseMethod(generic = 'Misc', object = object)
-}
-
-#' Set miscellaneous data
-#'
-#' @inheritParams Misc
-#' @param value Data to add
-#'
-#' @return An object with miscellaneous data added
-#'
-#' @rdname Misc
-#' @export Misc<-
-#'
-"Misc<-" <- function(object, ..., value) {
-  UseMethod(generic = 'Misc<-', object = object)
-}
 
 #' Normalize Data
 #'
@@ -551,284 +463,8 @@ NormalizeData <- function(object, ...) {
   UseMethod(generic = 'NormalizeData', object = object)
 }
 
-#' Identify cells matching certain criteria
-#'
-#' Returns a list of cells that match a particular set of criteria such as
-#' identity class, high/low values for particular PCs, ect..
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods and \code{FetchData}
-#'
-#' @return A vector of cell names
-#'
-#' @rdname OldWhichCells
-#' @export OldWhichCells
-#'
-#' @examples
-#' \dontrun{
-#' OldWhichCells(object = pbmc_small, ident.keep = 2)
-#' }
-#'
-OldWhichCells <- function(object, ...) {
-  UseMethod(generic = 'OldWhichCells', object = object)
-}
 
-#' Get and set project information
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods
-#'
-#' @return Project information
-#'
-#' @rdname Project
-#' @export Project
-#'
-Project <- function(object, ...) {
-  UseMethod(generic = 'Project', object = object)
-}
 
-#' @param value Project information to set
-#'
-#' @return An object with project information added
-#'
-#' @rdname Project
-#' @export Project<-
-#'
-"Project<-" <- function(object, ..., value) {
-  UseMethod(generic = 'Project<-', object = object)
-}
-
-#' Read from and write to h5ad files
-#'
-#' Utilize the Anndata h5ad file format for storing and sharing single-cell expression
-#' data. Provided are tools for writing objects to h5ad files, as well as reading
-#' h5ad files into a Seurat object
-#'
-#' @details
-#' \code{ReadH5AD} and \code{WriteH5AD} will try to automatically fill slots based
-#' on data type and presence. For example, objects will be filled with scaled and
-#' normalized data if \code{adata.X} is a dense matrix and \code{raw} is present
-#' (when reading), or if the \code{scale.data} slot is filled (when writing). The
-#' following is a list of how objects will be filled
-#' \describe{
-#'   \item{\code{adata.X} is dense and \code{adata.raw} is filled; \code{ScaleData} is filled}{Objects will be filled with scaled and normalized data}
-#'   \item{
-#'     \code{adata.X} is sparse and \code{adata.raw} is filled; \code{NormalizeData} has been run, \code{ScaleData} has not been run
-#'   }{
-#'     Objects will be filled with normalized and raw data
-#'   }
-#'   \item{\code{adata.X} is sparse and \code{adata.raw} is not filled; \code{NormalizeData} has not been run}{Objects will be filled with raw data only}
-#' }
-#' In addition, dimensional reduction information and nearest-neighbor graphs will
-#' be searched for and added if and only if scaled data is being added.
-#'
-#' When reading: project name is \code{basename(file)}; identity classes will be
-#' set as the project name; all cell-level metadata from \code{adata.obs} will be
-#' taken; feature level metadata from \code{data.var} and \code{adata.raw.var}
-#' (if present) will be merged and stored in assay \code{meta.features}; highly
-#' variable features will be set if \code{highly_variable} is present in feature-level
-#' metadata; dimensional reduction objects will be given the assay name provided
-#' to the function call; graphs will be named \code{assay_method} if method is
-#' present, otherwise \code{assay_adata}
-#'
-#' When writing: only one assay will be written; all dimensional reductions and
-#' graphs associated with that assay will be stored, no other reductions or graphs
-#' will be written; active identity classes will be stored in \code{adata.obs} as
-#' \code{active_ident}
-#'
-#' @param file Name of h5ad file, or an H5File object for reading in
-#'
-#' @return \code{ReadH5AD}: A Seurat object with data from the h5ad file
-#'
-#' @aliases ReadH5AD
-#'
-#' @rdname h5ad
-#' @export ReadH5AD
-#'
-ReadH5AD <- function(file, ...) {
-  UseMethod(generic = 'ReadH5AD', object = file)
-}
-
-#' Rename cells
-#'
-#' Change the cell names in all the different parts of an object. Can
-#' be useful before combining multiple objects.
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods
-#'
-#' @return An object with new cell names
-#'
-#' @rdname RenameCells
-#' @export RenameCells
-#'
-RenameCells <- function(object, ...) {
-  UseMethod(generic = 'RenameCells', object = object)
-}
-
-#' @inheritParams Idents
-#'
-#' @return \code{RenameIdents}: An object with selected identity classes renamed
-#'
-#' @rdname Idents
-#' @export RenameIdents
-#' @aliases RenameIdent
-#'
-#' @examples
-#' # Rename cell identity classes
-#' # Can provide an arbitrary amount of idents to rename
-#' levels(x = pbmc_small)
-#' pbmc_small <- RenameIdents(object = pbmc_small, '0' = 'A', '2' = 'C')
-#' levels(x = pbmc_small)
-#'
-RenameIdents <- function(object, ...) {
-  UseMethod(generic = 'RenameIdents', object = object)
-}
-
-#' @inheritParams Idents
-#' @param var Feature or variable to order on
-#'
-#' @return \code{ReorderIdent}: An object with
-#'
-#' @rdname Idents
-#' @export ReorderIdent
-#' @aliases ReorderIdent
-#'
-#' @examples
-#' \dontrun{
-#' head(x = Idents(object = pbmc_small))
-#' pbmc_small <- ReorderIdent(object = pbmc_small, var = 'PC_1')
-#' head(x = Idents(object = pbmc_small))
-#' }
-#'
-ReorderIdent <- function(object, var, ...) {
-  UseMethod(generic = 'ReorderIdent', object = object)
-}
-
-#' Run Adaptively-thresholded Low Rank Approximation (ALRA)
-#'
-#' Runs ALRA, a method for imputation of dropped out values in scRNA-seq data.
-#' Computes the k-rank approximation to A_norm and adjusts it according to the
-#' error distribution learned from the negative values. Described in
-#' Linderman, G. C., Zhao, J., Kluger, Y. (2018). "Zero-preserving imputation
-#' of scRNA-seq data using low rank approximation." (bioRxiv:138677)
-#'
-#' @note RunALRA and associated functions are being moved to SeuratWrappers;
-#' for more information on SeuratWrappers, please see \url{https://github.com/satijalab/seurat-wrappers}
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods
-#'
-#' @rdname RunALRA
-#' @export RunALRA
-#'
-#' @author Jun Zhao, George Linderman
-#' @references Linderman, G. C., Zhao, J., Kluger, Y. (2018). "Zero-preserving imputation
-#' of scRNA-seq data using low rank approximation." (bioRxiv:138677)
-#' @seealso \code{\link{ALRAChooseKPlot}}
-#'
-#' @examples
-#' pbmc_small
-#' # Example 1: Simple usage, with automatic choice of k.
-#' pbmc_small_alra <- RunALRA(object = pbmc_small)
-#' \dontrun{
-#' # Example 2: Visualize choice of k, then run ALRA
-#' # First, choose K
-#' pbmc_small_alra <- RunALRA(pbmc_small, k.only=TRUE)
-#' # Plot the spectrum, spacings, and p-values which are used to choose k
-#' ggouts <- ALRAChooseKPlot(pbmc_small_alra)
-#' do.call(gridExtra::grid.arrange, c(ggouts, nrow=1))
-#' # Run ALRA with the chosen k
-#' pbmc_small_alra <- RunALRA(pbmc_small_alra)
-#' }
-#'
-RunALRA <- function(object, ...) {
-  .Deprecated(
-    new = 'SeruatWrappers::RunALRA',
-    msg = paste(
-      'RunALRA and associated functions are being moved to SeuratWrappers;',
-      'for more information on SeuratWrappers, please see https://github.com/satijalab/seurat-wrappers'
-    )
-  )
-  UseMethod(generic = 'RunALRA', object = object)
-}
-
-#' Perform Canonical Correlation Analysis
-#'
-#' Runs a canonical correlation analysis using a diagonal implementation of CCA.
-#' For details about stored CCA calculation parameters, see
-#' \code{PrintCCAParams}.
-#' @param object1 First Seurat object
-#' @param object2 Second Seurat object.
-# @param ... Arguments passed to other methods
-#'
-#' @return Returns a combined Seurat object with the CCA results stored.
-#'
-#' @rdname RunCCA
-#' @export RunCCA
-#'
-#' @seealso \code{\link{merge.Seurat}}
-#'
-#' @examples
-#' pbmc_small
-#' # As CCA requires two datasets, we will split our test object into two just for this example
-#' pbmc1 <- subset(pbmc_small, cells = colnames(pbmc_small)[1:40])
-#' pbmc2 <- subset(pbmc_small, cells = colnames(x = pbmc_small)[41:80])
-#' pbmc1[["group"]] <- "group1"
-#' pbmc2[["group"]] <- "group2"
-#' pbmc_cca <- RunCCA(object1 = pbmc1, object2 = pbmc2)
-#' # Print results
-#' print(x = pbmc_cca[["cca"]])
-#'
-#' @rdname RunCCA
-#' @export RunCCA
-#'
-RunCCA <- function(object1, object2, ...) {
-  UseMethod(generic = 'RunCCA', object = object1)
-}
-
-#' Run Independent Component Analysis on gene expression
-#'
-#' Run fastica algorithm from the ica package for ICA dimensionality reduction.
-#' For details about stored ICA calculation parameters, see
-#' \code{PrintICAParams}.
-#'
-#' @param object Seurat object
-#'
-#' @rdname RunICA
-#' @export RunICA
-#'
-RunICA <- function(object, ...) {
-  UseMethod(generic = "RunICA", object = object)
-}
-
-#' Run Latent Semantic Indexing on binary count matrix
-#'
-#' For details about stored LSI calculation parameters, see
-#' \code{PrintLSIParams}.
-#'
-#' @note RunLSI is being moved to Signac. Equivalent functionality can be
-#' achieved via the Signac::RunTFIDF and Signac::RunSVD functions;
-#' for more information on Signac, please see
-#' \url{https://github.com/timoast/Signac}
-#'
-#' @param object Seurat object
-#' @param ... Arguments passed to other methods
-#'
-#' @rdname RunLSI
-#' @export RunLSI
-#'
-RunLSI <- function(object, ...) {
-  .Deprecated(
-    new = 'Signac::RunTFIDF',
-    msg = paste(
-      "RunLSI is being moved to Signac. Equivalent functionality can be",
-      "achieved via the Signac::RunTFIDF and Signac::RunSVD functions; for",
-      "more information on Signac, please see https://github.com/timoast/Signac"
-    )
-  )
-  UseMethod(generic = "RunLSI", object = object)
-}
 
 #' Run Principal Component Analysis
 #'
@@ -864,6 +500,104 @@ RunPCA <- function(object, ...) {
 #'
 RunTSNE <- function(object, ...) {
   UseMethod(generic = 'RunTSNE', object = object)
+}
+
+#' Get and set project information
+#'
+#' @param object An object
+#' @param ... Arguments passed to other methods
+#'
+#' @return Project information
+#'
+#' @rdname Project
+#' @export Project
+#'
+Project <- function(object, ...) {
+  UseMethod(generic = 'Project', object = object)
+}
+
+#' @param value Project information to set
+#'
+#' @return An object with project information added
+#'
+#' @rdname Project
+#' @export Project<-
+#'
+"Project<-" <- function(object, ..., value) {
+  UseMethod(generic = 'Project<-', object = object)
+}
+
+#' Compute Jackstraw scores significance.
+#'
+#' Significant PCs should show a p-value distribution that is
+#' strongly skewed to the left compared to the null distribution.
+#' The p-value for each PC is based on a proportion test comparing the number
+#' of features with a p-value below a particular threshold (score.thresh), compared with the
+#' proportion of features expected under a uniform distribution of p-values.
+#'
+#' @param object An object
+#' @param ... Arguments passed to other methods
+#'
+#' @return Returns a Seurat object
+#'
+#' @author Omri Wurtzel
+#' @seealso \code{\link{JackStrawPlot}}
+#'
+#' @rdname ScoreJackStraw
+#' @export ScoreJackStraw
+#'
+ScoreJackStraw <- function(object, ...) {
+  UseMethod(generic = 'ScoreJackStraw', object = object)
+}
+
+#' @return \code{SetIdent}: An object with new identity classes set
+#'
+#' @rdname Idents
+#' @export SetIdent
+#'
+#' @examples
+#' # Set cell identity classes using SetIdent
+#' cells.use <- WhichCells(object = pbmc_small, idents = '1')
+#' pbmc_small <- SetIdent(object = pbmc_small, cells = cells.use, value = 'B')
+#'
+SetIdent <- function(object, ...) {
+  UseMethod(generic = 'SetIdent', object = object)
+}
+
+#' Return a subset of the Seurat object
+#'
+#' Creates a Seurat object containing only a subset of the cells in the
+#' original object. Takes either a list of cells to use as a subset, or a
+#' parameter (for example, a gene), to subset on.
+#'
+#' @param object An object
+#' @param ... Arguments passed to other methods
+#'
+#' @return Returns a Seurat object containing only the relevant subset of cells
+#'
+#' @rdname SubsetData
+#' @export SubsetData
+#'
+#' @examples
+#' \dontrun{
+#' pbmc1 <- SubsetData(object = pbmc_small, cells = colnames(x = pbmc_small)[1:40])
+#' pbmc1
+#' }
+#'
+SubsetData <- function(object, ...) {
+  UseMethod(generic = 'SubsetData', object = object)
+}
+
+#' Convert objects to CellDataSet objects
+#'
+#' @param x An object to convert to class \code{CellDataSet}
+#' @param ... Arguments passed to other methods
+#'
+#' @rdname as.CellDataSet
+#' @export as.CellDataSet
+#'
+as.CellDataSet <- function(x, ...) {
+  UseMethod(generic = 'as.CellDataSet', object = x)
 }
 
 #' Run UMAP
@@ -928,28 +662,7 @@ ScaleData <- function(object, ...) {
   UseMethod(generic = 'ScaleData', object = object)
 }
 
-#' Compute Jackstraw scores significance.
-#'
-#' Significant PCs should show a p-value distribution that is
-#' strongly skewed to the left compared to the null distribution.
-#' The p-value for each PC is based on a proportion test comparing the number
-#' of features with a p-value below a particular threshold (score.thresh), compared with the
-#' proportion of features expected under a uniform distribution of p-values.
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods
-#'
-#' @return Returns a Seurat object
-#'
-#' @author Omri Wurtzel
-#' @seealso \code{\link{JackStrawPlot}}
-#'
-#' @rdname ScoreJackStraw
-#' @export ScoreJackStraw
-#'
-ScoreJackStraw <- function(object, ...) {
-  UseMethod(generic = 'ScoreJackStraw', object = object)
-}
+
 
 #' Setter for multimodal data
 #'
@@ -963,20 +676,6 @@ ScoreJackStraw <- function(object, ...) {
 #'
 SetAssayData <- function(object, ...) {
   UseMethod(generic = 'SetAssayData', object = object)
-}
-
-#' @return \code{SetIdent}: An object with new identity classes set
-#'
-#' @rdname Idents
-#' @export SetIdent
-#'
-#' @examples
-#' # Set cell identity classes using SetIdent
-#' cells.use <- WhichCells(object = pbmc_small, idents = '1')
-#' pbmc_small <- SetIdent(object = pbmc_small, cells = cells.use, value = 'B')
-#'
-SetIdent <- function(object, ...) {
-  UseMethod(generic = 'SetIdent', object = object)
 }
 
 #' @return \code{StashIdent}: An object with the identities stashed
@@ -1003,65 +702,6 @@ StashIdent <- function(object, save.name, ...) {
 #'
 Stdev <- function(object, ...) {
   UseMethod(generic = 'Stdev', object = object)
-}
-
-#' Return a subset of the Seurat object
-#'
-#' Creates a Seurat object containing only a subset of the cells in the
-#' original object. Takes either a list of cells to use as a subset, or a
-#' parameter (for example, a gene), to subset on.
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods
-#'
-#' @return Returns a Seurat object containing only the relevant subset of cells
-#'
-#' @rdname SubsetData
-#' @export SubsetData
-#'
-#' @examples
-#' \dontrun{
-#' pbmc1 <- SubsetData(object = pbmc_small, cells = colnames(x = pbmc_small)[1:40])
-#' pbmc1
-#' }
-#'
-SubsetData <- function(object, ...) {
-  UseMethod(generic = 'SubsetData', object = object)
-}
-
-#' Get and set additional tool data
-#'
-#' Use \code{Tool} to get tool data. If no additional arguments are provided,
-#' will return a vector with the names of tools in the object.
-#'
-#' @param object An object
-#' @param ... Arguments passed to other methods
-#'
-#' @return If no additional arguments, returns the names of the tools in the
-#' object; otherwise returns the data placed by the tool requested
-#'
-#'@note For developers: set tool data using \code{Tool<-}. \code{Tool<-} will
-#'automatically set the name of the tool to the function that called \code{Tool<-},
-#'so each function gets one entry in the tools list and cannot overwrite another
-#'function's entry. The automatic naming will also remove any method identifiers
-#'(eg. RunPCA.Seurat will become RunPCA); please plan accordingly.
-#'
-#' @rdname Tool
-#' @export Tool
-#' @aliases Tools
-#'
-Tool <- function(object, ...) {
-  UseMethod(generic = 'Tool', object = object)
-}
-
-#' @inheritParams Tool
-#' @param value Information to be added to tool list
-#'
-#' @rdname Tool
-#' @export Tool<-
-#'
-"Tool<-" <- function(object, ..., value) {
-  UseMethod(generic = 'Tool<-', object = object)
 }
 
 #' Get and set variable feature information
@@ -1109,15 +749,4 @@ VariableFeatures <- function(object, ...) {
 #'
 WhichCells <- function(object, ...) {
   UseMethod(generic = 'WhichCells', object = object)
-}
-
-#' @param object An object
-#' @param ... arguments passed to other methods
-#'
-#' @return \code{WriteH5AD}: None, writes to disk
-#'
-#' @rdname h5ad
-#'
-WriteH5AD <- function(object, ...) {
-  UseMethod(generic = 'WriteH5AD', object = object)
 }

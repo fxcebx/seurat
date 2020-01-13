@@ -12,7 +12,7 @@ L2Dim(object, reduction, new.dr = NULL, new.key = NULL)
 \item{reduction}{Dimensional reduction to normalize}
 
 \item{new.dr}{name of new dimensional reduction to store
-(default is olddr.l2)}
+(default is olddr.l2)L2Norm}
 
 \item{new.key}{name of key for new dimensional reduction}
 }

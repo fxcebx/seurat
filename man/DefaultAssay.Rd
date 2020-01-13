@@ -3,7 +3,6 @@
 \name{DefaultAssay}
 \alias{DefaultAssay}
 \alias{DefaultAssay<-}
-\alias{DefaultAssay.Assay}
 \alias{DefaultAssay.DimReduc}
 \alias{DefaultAssay.Graph}
 \alias{DefaultAssay.Seurat}
@@ -14,8 +13,6 @@
 DefaultAssay(object, ...)
 
 DefaultAssay(object, ...) <- value
-
-\method{DefaultAssay}{Assay}(object, ...)
 
 \method{DefaultAssay}{DimReduc}(object, ...)
 
