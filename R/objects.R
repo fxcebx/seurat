@@ -1576,7 +1576,7 @@ HVFInfo.Seurat <- function(
   if (is.null(x = selection.method)) {
     cmds <- apply(
       X = expand.grid(
-        c('FindVariableFeatures', 'SCTransform'),
+        'FindVariableFeatures',
         FilterObjects(object = object, classes.keep = 'Assay')
       ),
       MARGIN = 1,
@@ -1586,7 +1586,7 @@ HVFInfo.Seurat <- function(
     find.command <- Command(object = object)[Command(object = object) %in% cmds]
     if (length(x = find.command) < 1) {
       stop(
-        "Please run either 'FindVariableFeatures' or 'SCTransform'",
+        "Please run 'FindVariableFeatures'",
         call. = FALSE
       )
     }
@@ -1604,7 +1604,6 @@ HVFInfo.Seurat <- function(
         command = find.command,
         value = 'selection.method'
       ),
-      'SCTransform' = 'sct',
       stop("Unknown command for finding variable features: '", find.command, "'", call. = FALSE)
     )
   }

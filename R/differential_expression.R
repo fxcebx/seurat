@@ -23,7 +23,6 @@ globalVariables(
 #' @return Matrix containing a ranked list of putative markers, and associated
 #' statistics (p-values, ROC score, etc.)
 #'
-#' @importFrom ape drop.tip
 #' @importFrom stats setNames
 #'
 #' @export

@@ -15,13 +15,10 @@ NULL
 #' @importFrom future nbrOfWorkers
 #'
 #' @param modularity.fxn Modularity function (1 = standard; 2 = alternative).
-#' @param initial.membership,weights,node.sizes Parameters to pass to the Python leidenalg function.
 #' @param resolution Value of the resolution parameter, use a value above
 #' (below) 1.0 if you want to obtain a larger (smaller) number of communities.
 #' @param algorithm Algorithm for modularity optimization (1 = original Louvain
-#' algorithm; 2 = Louvain algorithm with multilevel refinement; 3 = SLM
-#' algorithm; 4 = Leiden algorithm). Leiden requires the leidenalg python.
-#' @param method Method for running leiden (defaults to matrix which is fast for small datasets).
+#' algorithm; 2 = Louvain algorithm with multilevel refinement).
 #' Enable method = "igraph" to avoid casting large data to a dense matrix.
 #' @param n.start Number of random starts.
 #' @param n.iter Maximal number of iterations per random start.
@@ -61,9 +58,7 @@ FindClusters.default <- function(
   if (tolower(x = algorithm) == "louvain") {
     algorithm <- 1
   }
-  if (tolower(x = algorithm) == "leiden") {
-    algorithm <- 4
-  }
+  
   if (nbrOfWorkers() > 1) {
     clustering.results <- future_lapply(
       X = resolution,
@@ -80,18 +75,6 @@ FindClusters.default <- function(
             print.output = verbose,
             temp.file.location = temp.file.location,
             edge.file.name = edge.file.name
-          )
-        } else if (algorithm == 4) {
-          ids <- RunLeiden(
-            object = object,
-            method = method,
-            partition.type = "RBConfigurationVertexPartition",
-            initial.membership = initial.membership,
-            weights = weights,
-            node.sizes = node.sizes,
-            resolution.parameter = r,
-            random.seed = random.seed,
-            n.iter = n.iter
           )
         } else {
           stop("algorithm not recognised, please specify as an integer or string")
@@ -119,18 +102,6 @@ FindClusters.default <- function(
           print.output = verbose,
           temp.file.location = temp.file.location,
           edge.file.name = edge.file.name)
-      } else if (algorithm == 4) {
-        ids <- RunLeiden(
-          object = object,
-          method = method,
-          partition.type = "RBConfigurationVertexPartition",
-          initial.membership = initial.membership,
-          weights = weights,
-          node.sizes = node.sizes,
-          resolution.parameter = r,
-          random.seed = random.seed,
-          n.iter = n.iter
-        )
       } else {
         stop("algorithm not recognised, please specify as an integer or string")
       }
@@ -664,7 +635,7 @@ NNHelper <- function(data, query = data, k, method, ...) {
 # @param SNN SNN matrix to use as input for the clustering algorithms
 # @param modularity Modularity function to use in clustering (1 = standard; 2 = alternative)
 # @param resolution Value of the resolution parameter, use a value above (below) 1.0 if you want to obtain a larger (smaller) number of communities
-# @param algorithm Algorithm for modularity optimization (1 = original Louvain algorithm; 2 = Louvain algorithm with multilevel refinement; 3 = SLM algorithm; 4 = Leiden algorithm). Leiden requires the leidenalg python module.
+# @param algorithm Algorithm for modularity optimization (1 = original Louvain algorithm; 2 = Louvain algorithm with multilevel refinement; 3 = SLM algorithm.
 # @param n.start Number of random starts
 # @param n.iter Maximal number of iterations per random start
 # @param random.seed Seed of the random number generator
