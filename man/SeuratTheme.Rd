@@ -3,32 +3,16 @@
 \name{SeuratTheme}
 \alias{SeuratTheme}
 \alias{DarkTheme}
-\alias{FontSize}
-\alias{NoAxes}
 \alias{NoLegend}
 \alias{NoGrid}
 \alias{SeuratAxes}
-\alias{SpatialTheme}
-\alias{RestoreLegend}
-\alias{RotatedAxis}
-\alias{BoldTitle}
 \alias{WhiteBackground}
+\alias{NoAxes}
 \title{Seurat Themes}
 \usage{
 SeuratTheme()
 
 DarkTheme(...)
-
-FontSize(
-  x.text = NULL,
-  y.text = NULL,
-  x.title = NULL,
-  y.title = NULL,
-  main = NULL,
-  ...
-)
-
-NoAxes(..., keep.text = FALSE, keep.ticks = FALSE)
 
 NoLegend(...)
 
@@ -36,30 +20,16 @@ NoGrid(...)
 
 SeuratAxes(...)
 
-SpatialTheme(...)
-
-RestoreLegend(..., position = "right")
-
-RotatedAxis(...)
-
-BoldTitle(...)
-
 WhiteBackground(...)
+
+NoAxes(..., keep.text = FALSE, keep.ticks = FALSE)
 }
 \arguments{
 \item{...}{Extra parameters to be passed to \code{theme}}
 
-\item{x.text, y.text}{X and Y axis text sizes}
-
-\item{x.title, y.title}{X and Y axis title sizes}
-
-\item{main}{Plot title size}
-
 \item{keep.text}{Keep axis text}
 
 \item{keep.ticks}{Keep axis ticks}
-
-\item{position}{A position to restore the legend to}
 }
 \value{
 A ggplot2 theme object
@@ -87,12 +57,6 @@ df <- data.frame(x = rnorm(n = 100, mean = 20, sd = 2), y = rbinom(n = 100, size
 p <- ggplot(data = df, mapping = aes(x = x, y = y)) + geom_point(mapping = aes(color = 'red'))
 p + DarkTheme(legend.position = 'none')
 
-# Generate a plot with no axes
-library(ggplot2)
-df <- data.frame(x = rnorm(n = 100, mean = 20, sd = 2), y = rbinom(n = 100, size = 100, prob = 0.2))
-p <- ggplot(data = df, mapping = aes(x = x, y = y)) + geom_point(mapping = aes(color = 'red'))
-p + NoAxes()
-
 # Generate a plot with no legend
 library(ggplot2)
 df <- data.frame(x = rnorm(n = 100, mean = 20, sd = 2), y = rbinom(n = 100, size = 100, prob = 0.2))
@@ -104,6 +68,12 @@ library(ggplot2)
 df <- data.frame(x = rnorm(n = 100, mean = 20, sd = 2), y = rbinom(n = 100, size = 100, prob = 0.2))
 p <- ggplot(data = df, mapping = aes(x = x, y = y)) + geom_point(mapping = aes(color = 'red'))
 p + NoGrid()
+
+# Generate a plot with no axes
+library(ggplot2)
+df <- data.frame(x = rnorm(n = 100, mean = 20, sd = 2), y = rbinom(n = 100, size = 100, prob = 0.2))
+p <- ggplot(data = df, mapping = aes(x = x, y = y)) + geom_point(mapping = aes(color = 'red'))
+p + NoAxes()
 
 }
 \seealso{

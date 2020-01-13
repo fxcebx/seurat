@@ -2,21 +2,10 @@
 % Please edit documentation in R/generics.R, R/objects.R
 \name{SubsetData}
 \alias{SubsetData}
-\alias{SubsetData.Assay}
 \alias{SubsetData.Seurat}
 \title{Return a subset of the Seurat object}
 \usage{
 SubsetData(object, ...)
-
-\method{SubsetData}{Assay}(
-  object,
-  cells = NULL,
-  subset.name = NULL,
-  low.threshold = -Inf,
-  high.threshold = Inf,
-  accept.value = NULL,
-  ...
-)
 
 \method{SubsetData}{Seurat}(
   object,
@@ -37,20 +26,6 @@ SubsetData(object, ...)
 \item{object}{An object}
 
 \item{...}{Arguments passed to other methods}
-
-\item{cells}{A vector of cell names to use as a subset. If NULL
-(default), then this list will be computed based on the next three
-arguments. Otherwise, will return an object consissting only of these cells}
-
-\item{subset.name}{Parameter to subset on. Eg, the name of a gene, PC_1, a
-column name in object@meta.data, etc. Any argument that can be retreived
-using FetchData}
-
-\item{low.threshold}{Low cutoff for the parameter (default is -Inf)}
-
-\item{high.threshold}{High cutoff for the parameter (default is Inf)}
-
-\item{accept.value}{Returns cells with the subset name equal to this value}
 
 \item{assay}{Assay to subset on}
 
